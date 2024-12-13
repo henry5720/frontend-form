@@ -25,7 +25,8 @@ const formatValue = (type: string, value: string | number | Date | null) => {
 export const UserTextField: React.FC<UserTextFieldProps> = (
   { type, name, value, isRequire, label, error, helperText, handleChange }
 ) => {
-  const today = new Date().toISOString().split('T')[0]; // 獲取今天的日期，格式化為 'yyyy-mm-dd'
+  const today = new Date().toLocaleDateString('en-CA'); // 獲取今天的日期，格式化為 'yyyy-mm-dd'
+  // console.log(new Date().toLocaleString('en-CA'));
 
   return (
     <Box>

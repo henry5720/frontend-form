@@ -14,11 +14,12 @@ export const validateBirthDate = (birth: Date | null): { error: boolean; helperT
       helperText: ''
     }
   };
-  const today = new Date();
-  const isVaild=birth < today ? true : false;
+  const today = new Date().toLocaleDateString('en-CA');
+  // console.log(today);
+  const isVaild=birth <= new Date(today) ? false : true;
   return {
     error: isVaild,
-    helperText: isVaild ? '' : 'Invalid birth date'
+    helperText: isVaild ? 'Invalid Date of Birth' : ''
   };
 };
 
