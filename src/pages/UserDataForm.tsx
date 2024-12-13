@@ -23,16 +23,15 @@ const initLogin: Login = {
 // 驗證函數
 const validateProfile = (profile: Profile) => {
   return {
-    firstName: !validateRequire(profile.firstName),
-    lastName: !validateRequire(profile.lastName),
-    gender: false,
-    birth: !validateBirthDate(profile.birth),
+    firstName: validateRequire(profile.firstName),
+    lastName: validateRequire(profile.lastName),
+    birth: validateBirthDate(profile.birth),
   };
 };
 const validateLogin = (login: Login) => {
   return {
-    emailOrPhone: !validateEmailOrPhone(login.email, login.phone),
-    password: !validatePassword(login.password, login.confirmPassword),
+    emailOrPhone: validateEmailOrPhone(login.email, login.phone),
+    password: validatePassword(login.password, login.confirmPassword),
   };
 };
 const UserDataForm: React.FC = () => {
@@ -40,14 +39,28 @@ const UserDataForm: React.FC = () => {
   const [profile, setProfile] = useState<Profile>(initProfile);
   const [login, setLogin] = useState<Login>(initLogin);
   const [isValidProfile, setIsValidProfile] = useState({
-    firstName: false,
-    lastName: false,
-    gender: false,
-    birth: false,
+    firstName: {
+      error: false,
+      helperText: ''
+    },
+    lastName: {
+      error: false,
+      helperText: ''
+    },
+    birth: {
+      error: false,
+      helperText: ''
+    },
   });
   const [isValidLogin, setIsValidLogin] = useState({
-    emailOrPhone: false,
-    password: false,
+    emailOrPhone: {
+      error: false,
+      helperText: ''
+    },
+    password: {
+      error: false,
+      helperText: ''
+    },
   });
 
   useEffect(() => { setIsInit(true) }, [])
@@ -56,21 +69,34 @@ const UserDataForm: React.FC = () => {
     if (isInit) {
       const isValidProfile = validateProfile(profile);
       setIsValidProfile(isValidProfile)
-      }
+    }
   }, [profile])
 
   useEffect(() => {
     if (isInit) {
       const isValidLogin = validateLogin(login);
       setIsValidLogin(isValidLogin)
-      }
+    }
   }, [login])
 
   const handleClick = () => {
     const isValidProfile = validateProfile(profile);
-    setIsValidProfile(isValidProfile)
     const isValidLogin = validateLogin(login);
-    setIsValidLogin(isValidLogin)
+
+    setIsValidProfile(isValidProfile);
+    setIsValidLogin(isValidLogin);
+
+    // 檢查驗證結果
+    if (Object.values(isValidProfile).every(field => !field.error) &&
+      Object.values(isValidLogin).every(field => !field.error)) {
+      const userData={
+        profileInfo: profile,
+        loginInfo: login
+      }
+      alert(JSON.stringify(userData));
+    } else {
+      alert('Please fix the errors in the form.');
+    }
   }
 
   return (

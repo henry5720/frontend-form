@@ -29,8 +29,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ data, setData, isValid }) 
           label={'Email Address'}
           value={data.email}
           handleChange={handleChangeText}
-          error={isValid.emailOrPhone} // Check if validation failed
-          helperText={isValid.email ? 'This field is required' : ''}
+          error={isValid.emailOrPhone.error} // Check if validation failed
+          helperText={isValid.emailOrPhone.error ? 'Email or a Phone Number is required' : ''}
         />
       </Grid2>
       <Grid2 size={{ xs: 12, sm: 6 }}>
@@ -41,8 +41,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ data, setData, isValid }) 
           label={'Phone Number'}
           value={data.phone}
           handleChange={handleChangeText}
-          error={isValid.emailOrPhone} // Check if validation failed
-          helperText={isValid.lastName ? 'This field is required' : ''}
+          error={isValid.emailOrPhone.error} // Check if validation failed
+          helperText={isValid.emailOrPhone.helperText}
         />
       </Grid2>
       <Grid2 size={{ xs: 12, sm: 6 }}>
@@ -52,8 +52,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ data, setData, isValid }) 
           name={'password'}
           label={'Password'}
           value={data.password}
-          error={isValid.password}
-          helperText=""
+          error={isValid.password.error}
+          helperText={isValid.password.helperText}
           handleChange={handleChangeText}
         />
       </Grid2>
@@ -64,8 +64,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ data, setData, isValid }) 
           name={'confirmPassword'}
           label={'Confirm Password'}
           value={data.confirmPassword}
-          error={isValid.password}
-          helperText=""
+          error={isValid.password.error}
+          helperText={isValid.password.helperText}
           handleChange={handleChangeText}
         />
       </Grid2>

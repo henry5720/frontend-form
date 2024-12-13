@@ -48,8 +48,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ data, setData, isValid
           label={'First Name'}
           value={data.firstName}
           handleChange={handleChangeText}
-          error={isValid.firstName} // Check if validation failed
-          helperText={isValid.firstName ? 'This field is required' : ''}
+          error={isValid.firstName.error} // Check if validation failed
+          helperText={isValid.firstName.helperText}
         />
       </Grid2>
       <Grid2 size={{ xs: 12, sm: 6 }}>
@@ -60,8 +60,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ data, setData, isValid
           label={'Last Name'}
           value={data.lastName}
           handleChange={handleChangeText}
-          error={isValid.lastName} // Check if validation failed
-          helperText={isValid.lastName ? 'This field is required' : ''}
+          error={isValid.lastName.error} // Check if validation failed
+          helperText={isValid.lastName.helperText}
         />
       </Grid2>
       <Grid2 size={{ xs: 12, sm: 6 }}>
@@ -70,7 +70,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ data, setData, isValid
           name={'gender'}
           label={'Gender'}
           value={data.gender}
-          error={isValid.gender}
+          error={false}
           helperText=""
           options={[
             { key: Gender.Male, label: 'Male' },
@@ -86,8 +86,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ data, setData, isValid
           name={'birth'}
           label={'Date of Birth'}
           value={data.birth}
-          error={isValid.birth}
-          helperText=""
+          error={isValid.birth.error}
+          helperText={isValid.birth.helperText}
           handleChange={handleChangeDate}
         />
       </Grid2>
